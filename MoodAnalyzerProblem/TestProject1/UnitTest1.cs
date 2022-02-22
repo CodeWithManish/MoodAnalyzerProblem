@@ -27,5 +27,16 @@ namespace TestProject1
             Assert.AreEqual(expected, actual);
         }
 
+        [TestMethod]
+        public void TestMethodForNullMood()
+
+        {
+            string message = "";
+            string expected = "Happy";
+            MoodAnalyser moodAnalyser = new MoodAnalyser(message);
+            string actual = moodAnalyser.AnalyseMood();
+            Assert.AreEqual(expected, actual);
+        }
+
     }
 }
