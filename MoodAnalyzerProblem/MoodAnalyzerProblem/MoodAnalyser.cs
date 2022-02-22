@@ -18,6 +18,17 @@ namespace MoodAnalyzerProblem
         {
             try
             {
+                if (this.Message == null)
+                {
+                    throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.NULL_EXCEPTION, "Mood should not be null");
+
+                }
+                if (this.Message.Equals(string.Empty))
+                {
+                    throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.EMPTY_EXCEPTION, "Mood should not be empty");
+                }
+
+
                 if (Message.ToLower().Contains("sad"))
                 {
                     return "sad";
@@ -28,9 +39,13 @@ namespace MoodAnalyzerProblem
 
                 }
             }
-            catch (NullReferenceException)
+            catch (MoodAnalyserException e)
             {
-                return null;
+                return e.Message;
+            }
+            catch (NullReferenceException e)
+            {
+                return e.Message;
             }
 
         }
