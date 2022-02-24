@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MoodAnalyseFactory.cs" />
     <Compile Include="MoodAnalyser.cs" />
     <Compile Include="MoodAnalyserException.cs" />
     <Compile Include="Program.cs" />

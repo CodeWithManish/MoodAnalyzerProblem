@@ -1,60 +1,52 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MoodAnalyzerProblem;
+using System;
 
 namespace TestProject1
 {
     [TestClass]
     public class UnitTest1
     {
-
+        // Using Reflection
         [TestMethod]
-        public void TestMethodForSadMood()
+        public void ReflectionReturnMoodAnalyseObject()
         {
-            string message = "I am in sad Mood";
-            string expected = "sad";
-            MoodAnalyser moodAnalyser = new MoodAnalyser(message);
-            string actual = moodAnalyser.AnalyseMood();
-            Assert.AreEqual(expected, actual);
+
+            object expected = new MoodAnalyser();
+            object obj = new MoodAnalyseFactory().CreateMoodAnalyserObject("MoodAnalyzerProblem.MoodAnalyser", "MoodAnalyser");
+            var objtype = obj.GetType();
+            var expectedType = expected.GetType();
+            Assert.AreEqual(expectedType, objtype);
         }
 
         [TestMethod]
-        public void TestMethodForAnyMood()
+        public void ImproperClassShouldThrowException()
         {
-            string message = "I am in Any Mood";
-            string expected = "Happy";
-            MoodAnalyser moodAnalyser = new MoodAnalyser(message);
-            string actual = moodAnalyser.AnalyseMood();
-            Assert.AreEqual(expected, actual);
+            object expected = new MoodAnalyser();
+            try
+            {
+                var obj = new MoodAnalyseFactory().CreateMoodAnalyserObject("MoodAnalyzerProblem.Mood", "Mood");
+               
+            }
+            catch (Exception e)
+            {
+                Assert.AreEqual("No such a class", e.Message);
+            }
         }
 
         [TestMethod]
-        public void TestMethodForNullMood()
-
+        public void ConstructorNotProperClassShouldThrowException()
         {
-            string message = "";
-            string expected = "Happy";
-            MoodAnalyser moodAnalyser = new MoodAnalyser(message);
-            string actual = moodAnalyser.AnalyseMood();
-            Assert.AreEqual(expected, actual);
-        }
-
-        [TestMethod]
-        public void TestMethodForCustomizedEmptyException()
-        {
-            string message = "";
-            string expected = "Mood should not be empty";
-            MoodAnalyser moodAnalyser = new MoodAnalyser(message);
-            string actual = moodAnalyser.AnalyseMood();
-            Assert.AreEqual(expected, actual);
-        }
-
-        [TestMethod]
-        public void TestMethodForCustomizedNULLException()
-        {
-            string message =null;
-            MoodAnalyser moodAnalyser = new MoodAnalyser(message);
-            string actual = moodAnalyser.AnalyseMood();
-            Assert.AreEqual("Mood should not be null", actual);
+            object expected = new MoodAnalyser();
+            try
+            {
+                var obj = new MoodAnalyseFactory().CreateMoodAnalyserObject("MoodAnalyzerProblem.MoodAnalyser", "MoodAnalyser");
+               
+            }
+            catch(Exception e)
+            {
+                Assert.AreEqual("No such a Constructor", e.Message);
+            }
         }
     }
-} 
+}
