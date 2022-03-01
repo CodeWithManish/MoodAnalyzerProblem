@@ -36,7 +36,7 @@ namespace MoodAnalyzerProblem
                
             }
         }
-        public string CreateMoodAnalyserParameterizedObject(string className, string constructor, string message)
+        public string CreateMoodAnalyserObject(string className, string constructor, string message)
         {
             try
             {
@@ -63,6 +63,25 @@ namespace MoodAnalyzerProblem
 
             }
             return default;
+        }
+
+        public string InvokeAnalyserMethod(string message, string methodName)
+        {
+            try
+            {
+                Type type = typeof(MoodAnalyser);
+
+                MethodInfo methodInfo = type.GetMethod(methodName);
+                MoodAnalyseFactory factory = new MoodAnalyseFactory();
+                object moodAnalyserObject = factory.CreateMoodAnalyserObject("MoodAnalyzerProblem.MoodAnalyser", "MoodAnalyser", message);
+                object info = methodInfo.Invoke(moodAnalyserObject, null);
+                return info.ToString();
+            }
+            catch (NullReferenceException)
+            {
+                throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.METHOD_NOT_FOUND, "Method not found");
+            }
+          
         }
     }
 }

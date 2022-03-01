@@ -28,6 +28,7 @@ namespace TestProject1
         }
 
         [TestMethod]
+
         public void TestMethodForNullMood()
 
         {
@@ -77,7 +78,7 @@ namespace TestProject1
             try
             {
                 var obj = new MoodAnalyseFactory().CreateMoodAnalyserObject("MoodAnalyzerProblem.Mood", "Mood");
-               
+
             }
             catch (Exception e)
             {
@@ -92,16 +93,16 @@ namespace TestProject1
             try
             {
                 var obj = new MoodAnalyseFactory().CreateMoodAnalyserObject("MoodAnalyzerProblem.MoodAnalyser", "MoodAnalyser");
-               
+
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Assert.AreEqual("No such a Constructor", e.Message);
             }
         }
 
         [TestMethod]
-        public void Reflection_Return_Parameterized_Constructor()
+        public void ReflectionReturnParameterizedConstructor()
         {
             string message = "I am in happy mood";
             MoodAnalyser expected = new MoodAnalyser(message);
@@ -109,7 +110,7 @@ namespace TestProject1
             try
             {
                 MoodAnalyseFactory factory = new MoodAnalyseFactory();
-                actual = factory.CreateMoodAnalyserParameterizedObject("MoodAnalyzerProblem.MoodAnalyser", "MoodAnalyser", message);
+                actual = factory.CreateMoodAnalyserObject("MoodAnalyzerProblem.MoodAnalyser", "MoodAnalyser", message);
 
             }
             catch (MoodAnalyserException ex)
@@ -120,7 +121,7 @@ namespace TestProject1
         }
 
         [TestMethod]
-        public void Reflection_Return_Parameterized_Class_Invalid()
+        public void ReflectionReturnParameterizedClassInvalid()
         {
             string message = "I am in happy mood";
             MoodAnalyser expected = new MoodAnalyser(message);
@@ -128,7 +129,7 @@ namespace TestProject1
             try
             {
                 MoodAnalyseFactory factory = new MoodAnalyseFactory();
-                actual = factory.CreateMoodAnalyserParameterizedObject("MoodAnalyzerProblem.MoodAnaly", "MoodAnalyser", message);
+                actual = factory.CreateMoodAnalyserObject("MoodAnalyzerProblem.MoodAnaly", "MoodAnalyser", message);
 
             }
             catch (MoodAnalyserException actual1)
@@ -136,5 +137,6 @@ namespace TestProject1
                 Assert.AreEqual(expected, actual1.Message);
             }
         }
+
     }
 }
