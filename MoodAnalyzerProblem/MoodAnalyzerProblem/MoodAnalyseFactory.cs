@@ -31,16 +31,38 @@ namespace MoodAnalyzerProblem
             }
             else
             {
-                try
-                {
-                    throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.CONSTRUCTOR_NAME_NOT_FOUND, "No such a constructor");
-
-                }catch (Exception e)
-                {
-                    return e.Message;
-                }
                 
+                    throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.CONSTRUCTOR_NAME_NOT_FOUND, "No such a constructor");  
+               
             }
+        }
+        public string CreateMoodAnalyserParameterizedObject(string className, string constructor, string message)
+        {
+            try
+            {
+                Type type = typeof(MoodAnalyser);
+                if (type.Name.Equals(className) || type.FullName.Equals(className))
+                {
+                    if (type.Name.Equals(constructor))
+                    {
+                        ConstructorInfo constructorInfo = type.GetConstructor(new[] { typeof(string) });
+                        var obj = constructorInfo.Invoke(new object[] { message });
+                        return Convert.ToString(obj);
+                    }
+                    else
+                    {
+                        throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.CONSTRUCTOR_NAME_NOT_FOUND, "Constructor is not found");
+
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+                throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.CLASS_NAME_NOT_FOUND, "Class not found");
+
+            }
+            return default;
         }
     }
 }
